@@ -1,18 +1,19 @@
 <template>
   <HeaderApp />
-  <PokedexCard />
+  <Pokemons />
+
 </template>
 
 <script>
 import HeaderApp from './components/HeaderApp.vue';
-import PokedexCard from './components/PokedexCard.vue';
+import Pokemons from './components/Pokemons.vue';
 
 export default {
   name: 'App',
 
   components:{
     HeaderApp,
-    PokedexCard
+    Pokemons
   },
 }
 </script>
