@@ -1,10 +1,15 @@
 <template>
     <div class="card text-center my-4 p-2">
-        <span class="fs-2 text-capitalize">{{ pokemonInfo.name }}</span>
+        <h1 class="text-capitalize">{{ pokemonInfo.name }}</h1>
+        <span class="fs-4 text-capitalize">Pokedex number: {{ pokemonData.id }}</span>
+        <span class="fs-4 text-capitalize" v-for="abilities in pokemonData.abilities">Abilities: {{ abilities.ability.name }}</span>
+
+        <img v-if="pokemonData.sprites" :src="pokemonData.sprites.front_default" :alt="pokemonInfo.name + ' sprite'">
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
     name: 'PokedexCard',
@@ -13,8 +18,20 @@ export default {
         pokemonInfo: Object,
     },
 
+    data() {
+        return {
+            pokemonData: [],
+        }
+    },
+
     methods: {
         getPokemonInfo(){
+            axios.get(this.pokemonInfo.url)
+            .then((response) =>{
+                this.pokemonData = response.data;
+
+                console.log(this.pokemonData)
+            })
         }
     },
 

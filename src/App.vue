@@ -1,7 +1,6 @@
 <template>
   <HeaderApp />
   <Pokemons />
-
 </template>
 
 <script>

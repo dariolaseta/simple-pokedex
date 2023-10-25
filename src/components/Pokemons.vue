@@ -1,8 +1,11 @@
 <template>
     <div class="container justify-content-center">
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12" v-for="pokemon in pokedex">
-                <PokedexCard :pokemonInfo = "pokemon" />
+            <div class="col-lg-4 col-md-6 col-sm-12" v-for="(pokemon, index) in pokedex" :key="pokemon.name">
+                <PokedexCard :pokemonInfo = "{
+                    name: pokemon.name,
+                    url: `https://pokeapi.co/api/v2/pokemon/${index + 1}/`
+                }" />
             </div>
         </div>
     </div>
@@ -23,10 +26,10 @@ components:{
 },
 
 data() {
-return {
-    apiUrl: "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0",
-    pokedex: [],
-    pokemonUrl: [],
+    return {
+        apiUrl: "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0",
+        pokedex: [],
+        pokemonUrl: [],
     }
 },
 methods: {
@@ -34,7 +37,10 @@ methods: {
     axios.get(this.apiUrl)
     .then((response)=> {
         this.pokedex = response.data.results;
-        console.log(this.pokedex[0].url);
+
+        this.pokedex.forEach((pokemon, index) =>{
+            pokemon.url = `https://pokeapi.co/api/v2/pokemon/${index + 1}/`;
+        })
 
     })
     }
