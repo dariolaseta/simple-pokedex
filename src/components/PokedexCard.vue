@@ -2,7 +2,10 @@
     <div class="card text-center my-4 p-2">
         <h1 class="text-capitalize">{{ pokemonInfo.name }}</h1>
         <span class="fs-4 text-capitalize">Pokedex number: {{ pokemonData.id }}</span>
-        <span class="fs-4 text-capitalize" v-for="abilities in pokemonData.abilities">Abilities: {{ abilities.ability.name }}</span>
+        <div class="fs-4 text-capitalize" v-for="(abilities, index) in pokemonData.abilities">
+            <span v-if="!abilities.is_hidden">Ability {{ index + 1 }}: {{ abilities.ability.name }}</span>
+            <span v-else>Hidden Ability: {{ abilities.ability.name }}</span>
+        </div>
 
         <img v-if="pokemonData.sprites" :src="pokemonData.sprites.front_default" :alt="pokemonInfo.name + ' sprite'">
     </div>
